@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
+  <meta name="theme-color" content="#141411" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <title>URBANA REDEMPTION — A frontier story</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700;800&family=Rye&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main id="app" aria-label="Urbana Redemption game">
+    <canvas id="world" aria-label="3D frontier game world"></canvas>
+    <div id="vignette"></div>
+    <div id="grain"></div>
+
+    <section id="title-screen" class="screen active" aria-label="Title screen">
+      <div class="title-atmosphere"><span></span><span></span><span></span></div>
+      <div class="title-lockup">
+        <p class="eyebrow">A FRONTIER STORY · 1891</p>
+        <h1>URBANA <b>REDEMPTION</b></h1>
+        <div class="rule"><i></i><span>✦</span><i></i></div>
+        <p class="tagline">Not every trail leads where you expect.</p>
+      </div>
+      <button id="title-enter" class="text-button">ENTER THE FRONTIER <span>↗</span></button>
+      <div class="title-foot"><span>© 1891 / BRAMBLE COUNTY</span><span>AN ORIGINAL FRONTIER</span></div>
+    </section>
+
+    <section id="main-menu" class="screen menu-screen" aria-label="Main menu">
+      <header class="menu-brand"><div class="mini-mark">UR</div><div><strong>URBANA</strong><em>REDEMPTION</em></div></header>
+      <div class="menu-content">
+        <div class="menu-copy"><p class="eyebrow">THE LAST LIGHT OF THE WEST</p><h2>Some debts<br><span>ride with you.</span></h2><p class="menu-sub">Bramble County, 1891. The railroad brought money west. It also brought old ghosts.</p></div>
+        <nav class="menu-actions" aria-label="Main menu actions">
+          <button class="menu-button primary" data-action="new">NEW JOURNEY <span>01</span></button>
+          <button class="menu-button" data-action="continue">CONTINUE <span>02</span></button>
+          <button class="menu-button" data-action="load">LOAD CAMP <span>03</span></button>
+          <button class="menu-button" data-action="settings">SETTINGS <span>04</span></button>
+        </nav>
+      </div>
+      <footer class="menu-footer"><span>BUILD 0.1 · VERTICAL SLICE</span><span>TOUCH · KEYBOARD · GAMEPAD READY</span><button data-action="credits">CREDITS</button></footer>
+    </section>
+
+    <section id="loading-screen" class="screen loading-screen" aria-label="Loading">
+      <div class="loading-card"><p class="eyebrow">BRAMBLE COUNTY / WESTERN TERRITORY</p><h2>URBANA <span>REDEMPTION</span></h2><div class="loading-rule"></div><p id="loading-tip">Loading the trail...</p><div class="loading-bar"><i id="loading-progress"></i></div><div class="loading-meta"><span>LOADING WORLD</span><span id="loading-percent">0%</span></div></div>
+    </section>
+
+    <section id="hud" class="game-layer" aria-label="Game HUD">
+      <div class="hud-top">
+        <div class="location-readout"><span class="location-dot"></span><div><small id="region-label">BRAMBLE COUNTY</small><strong id="location-label">CINDERWELL</strong></div></div>
+        <div class="day-readout"><span id="clock-label">07:24</span><small id="weather-label">CLEAR · MORNING</small></div>
+      </div>
+      <div class="hud-left">
+        <div class="status-stack"><div class="status-row"><span class="status-icon heart">♥</span><div class="meter"><i id="health-meter"></i></div></div><div class="status-row"><span class="status-icon bolt">◆</span><div class="meter dim"><i id="stamina-meter"></i></div></div></div>
+        <div class="wanted-chip" id="wanted-chip"><span></span><b id="wanted-label">CLEAR</b></div>
+      </div>
+      <div class="hud-right">
+        <div class="weapon-readout"><div class="weapon-glyph">╱╲</div><div><b id="weapon-label">IRONWIND</b><small>REVOLVER <strong id="ammo-label">6 / 24</strong></small></div></div>
+        <div class="money-readout"><span>$</span><b id="money-label">42.50</b></div>
+      </div>
+      <div id="objective-card" class="objective-card"><small>CURRENT OBJECTIVE</small><strong id="objective-label">Find Mara Vale by the old water tower</strong><span id="objective-progress">STORY · THE PRICE OF A PROMISE</span></div>
+      <div id="crosshair" class="crosshair"><i></i><i></i><i></i><i></i></div>
+      <div id="interact-prompt" class="interact-prompt"><span class="keycap">E</span><b id="interact-label">INTERACT</b></div>
+      <div class="horse-status hidden" id="horse-status"><div class="horse-icon">♞</div><div><small id="horse-name">ASHFALL</small><div class="horse-meter"><i id="horse-meter-fill"></i></div><em id="bond-label">BOND · 1</em></div></div>
+      <div id="toast-stack" class="toast-stack"></div>
+      <div class="hud-bottom"><div class="compass"><span>N</span><i id="compass-needle"></i><span>W</span></div><div class="hud-hints"><span><b>W A S D</b> MOVE</span><span><b>SHIFT</b> SPRINT</span><span><b>F</b> WHISTLE</span><span><b>ESC</b> MENU</span></div></div>
+    </section>
+
+    <section id="dialogue" class="game-layer dialogue-layer hidden" aria-live="polite">
+      <div class="dialogue-backdrop"></div><div class="dialogue-box"><div class="speaker-line"><span id="speaker-role">RANCH HAND</span><strong id="speaker-name">MARA VALE</strong></div><p id="dialogue-text"></p><div class="dialogue-footer"><span id="dialogue-index">01 / 03</span><span>SPACE / TAP TO CONTINUE</span></div></div>
+    </section>
+
+    <section id="pause-menu" class="modal hidden" aria-label="Pause menu"><div class="modal-card"><p class="eyebrow">PAUSED · THE TRAIL AWAITS</p><h2>Camp Ledger</h2><div class="pause-grid"><button data-pause="resume">RETURN TO TRAIL <span>ESC</span></button><button data-pause="save">SAVE AT CAMP <span>⌘</span></button><button data-pause="settings">SETTINGS <span>⚙</span></button><button data-pause="menu">RETURN TO TITLE <span>↩</span></button></div><p class="save-note" id="save-note">Autosave is active. The last camp was saved moments ago.</p></div></section>
+
+    <section id="settings-modal" class="modal hidden" aria-label="Settings"><div class="modal-card settings-card"><button class="modal-close" data-close="settings">×</button><p class="eyebrow">FIELD SETTINGS</p><h2>Trail Options</h2><div class="setting"><label>Camera sensitivity <output id="sens-output">70%</output></label><input id="sens-range" type="range" min="20" max="100" value="70"></div><div class="setting"><label>Subtitles <button class="toggle on" id="subtitle-toggle">ON</button></label></div><div class="setting"><label>Vibration <button class="toggle on" id="vibration-toggle">ON</button></label></div><div class="setting"><label>Graphics preset <select id="graphics-select"><option>LOW</option><option selected>MEDIUM</option><option>HIGH</option></select></label></div><button class="wide-button" data-close="settings">DONE</button></div></section>
+
+    <section id="credits-modal" class="modal hidden" aria-label="Credits"><div class="modal-card credits-card"><button class="modal-close" data-close="credits">×</button><p class="eyebrow">AN ORIGINAL FRONTIER</p><h2>Urbana Redemption</h2><p class="credits-lede">A small world with a long memory.</p><div class="credits-list"><span>CREATIVE DIRECTION <b>THE BRAMBLE COLLECTIVE</b></span><span>DESIGN & PROGRAMMING <b>ARENA FIELD TEAM</b></span><span>WORLD, STORY & SOUND <b>ORIGINAL WORK</b></span></div><button class="wide-button" data-close="credits">BACK TO TRAIL</button></div></section>
+
+    <div id="touch-controls" class="touch-controls hidden" aria-label="Touch controls"><div id="joystick" class="joystick"><i></i></div><div class="touch-actions"><button class="touch-btn" data-touch="whistle">♢<small>CALL</small></button><button class="touch-btn" data-touch="mount">♞<small>MOUNT</small></button><button class="touch-btn large" data-touch="aim">◎<small>AIM</small></button><button class="touch-btn fire" data-touch="fire">✦<small>FIRE</small></button><button class="touch-btn" data-touch="interact">✋<small>USE</small></button></div></div>
+    <div id="notification" class="notification" role="status"></div>
+  </main>
+  <script type="module" src="src/game.js"></script>
+</body>
+</html>
