@@ -1,0 +1,7 @@
+{
+  "appId": "com.bramblecollective.urbanaredemption",
+  "appName": "Urbana Redemption",
+  "webDir": ".",
+  "bundledWebRuntime": false,
+  "server": { "androidScheme": "https" }
+}
